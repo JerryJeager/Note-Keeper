@@ -7,16 +7,18 @@ function User() {
     const location = useLocation()
 
     const queryParams = new URLSearchParams(location.search)
-    const userName = queryParams.get("name")
+    const picture = queryParams.get("picture")
 
     useEffect(() => {
-        console.log(userName)
-    })
+        console.log(picture)
+    }, [])
 
     return ( 
         <>
             <div className="h-[90vh]">
-                <p>{userName},</p>
+                {/* Profile picuture */}
+                <img src={`${picture}`} alt= "" className="rounded-full w-[40px] h-[50px]" />
+                
                 <div className="mt-4 text-center">
                     <h2>Welcome to the real world!</h2>
                 </div>

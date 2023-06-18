@@ -1,34 +1,40 @@
-import { GoogleLoginButton } from "react-social-login-buttons"
-import { LoginSocialGoogle } from "reactjs-social-login"
-import { useNavigate } from 'react-router-dom'
-import { useState } from "react"
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { LoginSocialGoogle } from "reactjs-social-login";
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { app } from '../firebase/firebase';
 
-function App() {
-  const navigate = useNavigate()
+function Login() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    getRedirectResult(auth)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  }, []);
+
+  const handleLogin = () => {
+    setLoading(true);
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth(app);
+    signInWithRedirect(auth, provider);
+  };
 
   return (
     <div className="h-[75vh] px-[5%] flex justify-center items-center">
-
-      <LoginSocialGoogle
-      client_id="134566637399-399ubtiq424jpckgfkfpbo2fmlt2ccui.apps.googleusercontent.com"
-      scope="openid profile email"
-      discoveryDocs="claims_supported"
-      access_type="offline"
-      onResolve={({provider, data}) => {
-        console.log(provider,data)
-        navigate(`/User?name=${data.family_name}`)
-      }}
-      onReject={(err) => {
-        console.log(err)
-      
-      }}
-      >
-
-        <GoogleLoginButton/>
-
-      </LoginSocialGoogle>
+        <GoogleLoginButton onClick={handleLogin} disabled={loading} />
     </div>
-  )
+  );
 }
 
-export default App
+export default Login;
