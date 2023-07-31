@@ -1,16 +1,20 @@
 import { useState } from 'react'
 import handleConvertToPDF from '../helpers/convertToPdf'
 import { ToastContainer, toast } from 'react-toastify';
-
+import { useSelector } from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
+import uploadFile from '../helpers/uploadPdf';
 
-const AddNote = () => {
+const CreateNote = () => {
+    const { accessToken } = useSelector(state => state.user)
     const notifySuccess = () => toast("Note successfully added!");
 
     const [noteName, setNoteName] = useState('')
     const [noteImages, setNoteImages] = useState([])
 
-    const verifyNoteAdded = () => {
+    const handleAddNote = () => {
+        const pdfBlob = handleConvertToPDF(noteImages, noteName)
+        uploadFile(pdfBlob, noteName, accessToken)
         if(noteName.trim() !== '' && noteImages.length > 0)
             notifySuccess()
     }
@@ -56,11 +60,11 @@ const AddNote = () => {
                 <label htmlFor="note-images" className="mt-6 text-md block">Select note images</label>
                 <input type="file" required name="note-images" id="note-images" multiple accept="image/*" onChange={handleFileChange} className="mt-2"/>
                 
-                <button type="submit" className="mt-6 p-2 bg-white rounded-sm" onClick={verifyNoteAdded}>Add</button>
+                <button type="submit" className="mt-6 p-2 bg-white rounded-sm" onClick={handleAddNote}>Add</button>
                 <button onClick={handleDownloadPdf}><i className="fa-solid fa-download text-green-600 text-lg mt-2 ml-4"></i></button>
             </form>
             
         </div>
     )
 }
-export default AddNote
+export default CreateNote

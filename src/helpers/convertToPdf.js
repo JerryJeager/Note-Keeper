@@ -41,6 +41,8 @@ const handleConvertToPDF = async (noteImages, noteName) => {
 
     // Save the PDF and trigger the download
     pdf.save(`${noteName}`);
+    const pdfBlob = pdf.output('blob')
+    return pdfBlob
   } catch (error) {
     console.error('Error converting images to PDF:', error);
   }

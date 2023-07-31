@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
-function User() {
+function MyNotes() {
 
     const navigate = useNavigate()
 
@@ -12,7 +12,7 @@ function User() {
                     <h2 className="font-bold text-lg">
                         Convert your note images to pdf
                     </h2>
-                    <div className="flex justify-center items-center bg-white rounded-md mt-2 p-2 w-[100px] " onClick={() => navigate('/AddNote') }>
+                    <div className="flex justify-center items-center bg-white rounded-md mt-2 p-2 w-[100px] " onClick={() => navigate('/CreateNote') }>
                         <p>Add Notes</p>
                     </div>
                 </div>
@@ -23,4 +23,4 @@ function User() {
      );
 }
 
-export default User;
+export default MyNotes;

@@ -4,8 +4,8 @@ import { Provider } from 'react-redux'
 import Layout from "./Layout"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
-import User from "./pages/User"
-import AddNote from "./pages/AddNote"
+import MyNotes from "./pages/MyNotes"
+import CreateNote from "./pages/CreateNote"
 
 function App() {
 
@@ -15,8 +15,8 @@ function App() {
       <Route path="/" element={ <Layout />} >
           <Route index element={ < Home />} />
           <Route path="/Login" element={ <Login />} />
-          <Route path="/User" element={ < User /> } />
-          <Route path="/AddNote" element={ <AddNote /> } />
+          <Route path="/MyNotes" element={ < MyNotes /> } />
+          <Route path="/CreateNote" element={ < CreateNote /> } />
       </Route>
     </>
 

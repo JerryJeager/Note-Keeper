@@ -13,10 +13,13 @@ export const userSlice = createSlice({
     },
     setAccessToken: (state, action) => {
         state.accessToken = action.payload
+    }, 
+    setIsLoggedIn: (state, action) => {
+      state.isLoggedIn = action.payload
     }
   }
 })
 
-export const { setUserImg, setAccessToken } = userSlice.actions
+export const { setUserImg, setAccessToken, setIsLoggedIn } = userSlice.actions
 
 export default userSlice.reducer

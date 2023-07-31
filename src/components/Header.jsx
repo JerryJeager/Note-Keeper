@@ -12,6 +12,7 @@ function Header() {
     }
 
     const { userImg } = useSelector(state => state.user)
+    const { isLoggedIn } = useSelector(state => state.user)
 
 
     return ( 
@@ -42,6 +43,12 @@ function Header() {
                     <ul className="text-lg font-bold flex flex-col justify-between mt-[50px] p-4">
                         <li>
                             <NavLink to={'/'} onClick={() => setIsHamburgerClicked(false)}>Home</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={`${isLoggedIn ? '/MyNotes' : '/Login'}`} onClick={() => setIsHamburgerClicked(false)}>My Notes</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={`${isLoggedIn ? '/CreateNote' : '/Login'}`} onClick={() => setIsHamburgerClicked(false)}>Create Note</NavLink>
                         </li>
                         <li>
                             <NavLink to={'/Login'} onClick={() => setIsHamburgerClicked(false)}>Sign in</NavLink>
